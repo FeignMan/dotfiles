@@ -1,0 +1,7 @@
+[init]
+	defaultBranch = main
+[core]
+	name = Ishan Aditya
+	email = ishanaditya@gmail.com
+[credential]
+	helper = store
