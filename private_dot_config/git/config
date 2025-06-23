@@ -1,6 +1,6 @@
 [init]
 	defaultBranch = main
-[core]
+[user]
 	name = Ishan Aditya
 	email = ishanaditya@gmail.com
 [credential]
