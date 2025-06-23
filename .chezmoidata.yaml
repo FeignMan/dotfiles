@@ -1,0 +1,26 @@
+packages:
+  universal:
+    apts:
+      - tmux
+      - git
+      - curl
+      - wget
+      - vim
+      - jq
+      - python3
+      - python-pip3
+      - snapd
+      - tree
+      - htop
+      - gnupg2
+      - apt-transport-https
+      - ca-certificates
+      - gnupg-agent
+      - software-properties-common
+      - libssl-dev
+      - unzip
+      - figlet
+      - ripgrep
+      - lolcat
+      - whiptail
+      - bat

@@ -1,0 +1,8 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/bin/bash
+
+{{ range .packages.universal.apts -}}
+sudo apt install -yqq {{ . | quote }}
+{{ end -}}
+
+{{ end -}}
