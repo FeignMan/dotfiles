@@ -5,4 +5,10 @@
 sudo apt install -yqq {{ . | quote }}
 {{ end -}}
 
+# Setup Zsh and Oh-my-zsh
+if command -v zsh &> /dev/null; then
+  sudo chsh -s $(which zsh) ishan
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+fi;
+
 {{ end -}}

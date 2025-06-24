@@ -1,6 +1,7 @@
 packages:
   universal:
     apts:
+      - zsh
       - tmux
       - git
       - curl
@@ -24,3 +25,4 @@ packages:
       - lolcat
       - whiptail
       - bat
+      - zoxide
