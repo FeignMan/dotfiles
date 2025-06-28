@@ -126,3 +126,8 @@ zstyle ":fzf-tab:complete:cd:*" fzf-preview "ls --color=always \${realpath}"
 [ -f "${XDG_CONFIG_HOME}/zsh/.zshrc.local" ] && . "${XDG_CONFIG_HOME}/zsh/.zshrc.local"
 # shellcheck disable=SC1091
 if [ -f "${XDG_CONFIG_HOME}/zsh/.aliases.local" ]; then . "${XDG_CONFIG_HOME}/zsh/.aliases.local"; fi
+
+# |https://code.visualstudio.com/docs/remote/troubleshooting#_configuring-the-editor-variable
+if [ "$VSCODE_INJECTION" = "1" ]; then
+    export EDITOR="code --wait"
+fi
