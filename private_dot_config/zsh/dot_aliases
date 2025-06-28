@@ -53,7 +53,7 @@ alias myip="curl -s -4 https://ifconfig.me | tee >(clipcopy)"
 alias start-rec="start-recording && HISTSIZE=0"
 alias stop-rec='stop-recording && HISTSIZE=${SAVEHIST} && fc -R'
 
-alias k="kubectl"
+# alias k="kubectl"
 
 # This is specific to WSL 2. If the WSL 2 VM goes rogue and decides not to free
 # up memory, this command will free your memory after about 20-30 seconds.

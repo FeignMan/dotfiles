@@ -78,19 +78,6 @@ bindkey "\e[3~" delete-char
 # GPG_TTY="$(tty)"
 # export GPG_TTY
 
-# zsh-vi-mode-plugin sets a few key binds such as CTRL+r/p/n which may conflict
-# with other binds. This ensures fzf and our binds always win. If you choose
-# to remove this zsh plugin then each array item can exist normally in zshrc.
-zvm_after_init_commands+=(
-  ". <(fzf --zsh)"
-  "bindkey '^p' history-search-backward"
-  "bindkey '^n' history-search-forward"
-  "bindkey '^[OA' history-search-backward"
-  "bindkey '^[OB' history-search-forward"
-  "bindkey '^[[A' history-search-backward"
-  "bindkey '^[[B' history-search-forward"
-)
-
 # Configure fzf.
 # export FZF_DEFAULT_COMMAND="rg --files --follow --hidden --glob '!.git'"
 export FZF_DEFAULT_OPTS="--highlight-line --info=inline-right --ansi --layout=reverse --border=none"
@@ -102,14 +89,17 @@ export FZF_CTRL_T_OPTS="--preview='less {}' --height=100% --bind shift-up:previe
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 
 # Load / source zsh plugins.
+pluginPath="${XDG_DATA_HOME}/zsh"
 # shellcheck disable=SC1091
-# . "${XDG_DATA_HOME}/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
+. "${pluginPath}/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
 # shellcheck disable=SC1091
-# . "${XDG_DATA_HOME}/zsh-autosuggestions/zsh-autosuggestions.zsh"
+. "${pluginPath}/zsh-completions/zsh-completions.plugin.zsh"
 # shellcheck disable=SC1091
-# . "${XDG_DATA_HOME}/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
+. "${pluginPath}/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh"
 # shellcheck disable=SC1091
-# . "${XDG_DATA_HOME}/fzf-tab/fzf-tab.plugin.zsh"
+. "${pluginPath}/fzf-tab/fzf-tab.plugin.zsh"
+# shellcheck disable=SC1091
+. "${pluginPath}/k/k.plugin.zsh"
 
 # Ensure colors match by using FZF_DEFAULT_OPTS.
 zstyle ":fzf-tab:*" use-fzf-default-opts yes
