@@ -90,6 +90,7 @@ export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 
 # Load / source zsh plugins.
 pluginPath="${XDG_DATA_HOME}/zsh"
+omzPluginPath="${pluginPath}/omz_plugins"
 # shellcheck disable=SC1091
 . "${pluginPath}/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
 # shellcheck disable=SC1091
@@ -97,9 +98,12 @@ pluginPath="${XDG_DATA_HOME}/zsh"
 # shellcheck disable=SC1091
 . "${pluginPath}/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh"
 # shellcheck disable=SC1091
-. "${pluginPath}/fzf-tab/fzf-tab.plugin.zsh"
+# . "${pluginPath}/fzf-tab/fzf-tab.plugin.zsh"
 # shellcheck disable=SC1091
 . "${pluginPath}/k/k.plugin.zsh"
+
+# custom plugins stolen from Oh-my-Zsh
+. "${omzPluginPath}/git.plugin.zsh"
 
 # Ensure colors match by using FZF_DEFAULT_OPTS.
 zstyle ":fzf-tab:*" use-fzf-default-opts yes

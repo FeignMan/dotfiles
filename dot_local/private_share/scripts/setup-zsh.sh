@@ -1,6 +1,8 @@
 #!/bin/bash
 
 OMZ_PATH="$HOME/.local/share/oh-my-zsh"
+ZSH_PLUGIN_PATH="$HOME/.local/share/zsh/omz_plugins"
+
 XDG_DATA_HOME="${XDG_DATA_HOME:-"${HOME}/.local/share"}"
 declare -a plugins=(
     "zsh-users/zsh-autosuggestions"
@@ -28,6 +30,22 @@ install_OMZ() {
     fi
 }
 
+download_OMZ_plugins() {
+    declare -a omzPlugins=(
+        "git/git.plugin.zsh"
+    )
+    mkdir -p "$ZSH_PLUGIN_PATH"
+
+    for plugin in "${omzPlugins[@]}"; do
+        plugin_name=$(basename "$plugin"  ".plugin.zsh")
+        plugin_path="$ZSH_PLUGIN_PATH/${plugin_name}.plugin.zsh"
+        if [ ! -f "$plugin_path" ]; then
+            echo "[setup-zsh.sh] Downloading: $plugin_name"
+            curl -fsSL "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/$plugin" -o "$plugin_path"
+        fi
+    done
+}
+
 install_plugins() {
     declare -r installPath="${XDG_DATA_HOME}/zsh"
 
@@ -46,9 +64,12 @@ install_plugins() {
             git clone --depth=1 "https://github.com/$plugin" "$plugin_path"
         fi
     done
+
+    download_OMZ_plugins
 }
 
 # install_OMZ()
 install_plugins
+download_OMZ_plugins
 sudo usermod -s $(which zsh) ishan
 echo -e "[setup-zsh.sh] Zsh and Oh-my-zsh setup complete. Please restart your terminal or run 'source ~/.zshrc' to apply changes.\n"
