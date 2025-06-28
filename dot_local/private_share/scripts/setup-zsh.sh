@@ -50,5 +50,5 @@ install_plugins() {
 
 # install_OMZ()
 install_plugins
-sudo chsh -s $(which zsh) ishan
+sudo usermod -s $(which zsh) ishan
 echo -e "[setup-zsh.sh] Zsh and Oh-my-zsh setup complete. Please restart your terminal or run 'source ~/.zshrc' to apply changes.\n"
