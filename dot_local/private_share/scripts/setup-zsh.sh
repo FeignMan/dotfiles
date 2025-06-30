@@ -4,13 +4,16 @@ OMZ_PATH="$HOME/.local/share/oh-my-zsh"
 ZSH_PLUGIN_PATH="$HOME/.local/share/zsh/omz_plugins"
 
 XDG_DATA_HOME="${XDG_DATA_HOME:-"${HOME}/.local/share"}"
-declare -a plugins=(
+declare -r -a plugins=(
     "zsh-users/zsh-autosuggestions"
     "zdharma-continuum/fast-syntax-highlighting"
     "Aloxaf/fzf-tab"
     "supercrabtree/k"
     "zsh-users/zsh-completions"
     # "zsh-users/zsh-history-substring-search"
+)
+declare -r -a omzPlugins=(
+    "git/git.plugin.zsh"
 )
 
 # Check if Zsh is installed
@@ -31,9 +34,6 @@ install_OMZ() {
 }
 
 download_OMZ_plugins() {
-    declare -a omzPlugins=(
-        "git/git.plugin.zsh"
-    )
     mkdir -p "$ZSH_PLUGIN_PATH"
 
     for plugin in "${omzPlugins[@]}"; do
