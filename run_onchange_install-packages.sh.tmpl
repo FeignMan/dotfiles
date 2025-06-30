@@ -1,11 +1,19 @@
 {{ if eq .chezmoi.os "linux" -}}
 #!/bin/bash
 
+echo -e "\n\e[0;32m  Installing Apt Packages...\e[00m\n"
 {{ range .packages.universal.apts -}}
 sudo apt install -yqq {{ . | quote }}
 {{ end -}}
 
 # Setup Oh-my-zsh and Zsh plugins
+echo -e "\n\e[0;32m  Executing setup-zsh.sh...\e[00m\n"
 bash ~/.local/share/scripts/setup-zsh.sh
+
+# Setup FZF from releases
+echo -e "\n\e[0;32m  Installing FZF...\e[00m\n"
+wget -qO "$HOME/fzf.tar.gz" https://github.com/junegunn/fzf/releases/download/v0.63.0/fzf-0.63.0-linux_amd64.tar.gz
+mkdir -p $HOME/.local/bin
+tar -xf "$HOME/fzf.tar.gz" -C "$HOME/.local/bin/" && rm "$HOME/fzf.tar.gz"
 
 {{ end -}}

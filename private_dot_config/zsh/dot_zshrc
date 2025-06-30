@@ -79,7 +79,7 @@ bindkey "\e[3~" delete-char
 # export GPG_TTY
 
 # Configure fzf.
-# export FZF_DEFAULT_COMMAND="rg --files --follow --hidden --glob '!.git'"
+export FZF_DEFAULT_COMMAND="rg --files --follow --hidden --glob '!.git'"
 export FZF_DEFAULT_OPTS="--highlight-line --info=inline-right --ansi --layout=reverse --border=none"
 export FZF_CTRL_T_OPTS="--preview='less {}' --height=100% --bind shift-up:preview-page-up,shift-down:preview-page-down"
 # shellcheck disable=SC1091
@@ -98,7 +98,7 @@ omzPluginPath="${pluginPath}/omz_plugins"
 # shellcheck disable=SC1091
 . "${pluginPath}/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh"
 # shellcheck disable=SC1091
-# . "${pluginPath}/fzf-tab/fzf-tab.plugin.zsh"
+. "${pluginPath}/fzf-tab/fzf-tab.plugin.zsh"
 # shellcheck disable=SC1091
 . "${pluginPath}/k/k.plugin.zsh"
 
