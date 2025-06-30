@@ -3,6 +3,7 @@ packages:
     apts:
       - zsh
       - tmux
+      - fd-find
       - git
       - curl
       - wget
