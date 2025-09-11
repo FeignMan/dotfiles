@@ -5,6 +5,11 @@ echo -e "\n\e[0;32m  Installing Apt Packages...\e[00m\n"
 {{ range .packages.universal.apts -}}
 sudo apt install -yqq {{ . | quote }}
 {{ end -}}
+echo -e "\n\e[0;32m  Installing Snap Packages...\e[00m\n"
+{{ range .packages.universal.snap -}}
+sudo snap install {{ . }}
+{{ end -}}
+
 
 # Setup Oh-my-zsh and Zsh plugins
 echo -e "\n\e[0;32m  Executing setup-zsh.sh...\e[00m\n"

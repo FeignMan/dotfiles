@@ -27,3 +27,6 @@ packages:
       - whiptail
       - bat
       - zoxide
+    snap:
+      - bw
+      - yazi --classic
