@@ -19,19 +19,16 @@ This repository contains personal configuration files managed using [chezmoi](ht
 - `run_onchange_install-packages.sh.tmpl`: Package installation script (runs on change)
 
 ## Usage
-1. **Install pre-requisites** 
-   1. Chezmoi ([docs](https://www.chezmoi.io/install/#__tabbed_5_5))
-   2. Bitwarden CLI ([docs](https://bitwarden.com/help/cli/#tab-snap-bI3gMs3A3z4pl0fwvRie9))
+1. **Install** [**Chezmoi**](https://www.chezmoi.io/install/#__tabbed_5_5)
    ```sh
    snap install chezmoi --classic
-   snap install bw
    ```
 2. **Initialize chezmoi**:
    ```sh
-   chezmoi init <your-github-username>
+   chezmoi init FeignMan
    chezmoi apply
    ```
-3. **Customize** - Track new files or changes to tracked files:
+4. **Customize** - Track new files or changes to tracked files:
    ```sh
    chezmoi add <file_path>
    chezmoi cd
@@ -43,8 +40,17 @@ This repository contains personal configuration files managed using [chezmoi](ht
 - Private files are stored in `dot_local/private_share/`.
 - Scripts in `custom_scripts/` are executable and can be used for system checks and setup.
 
+- Prerequisite installation is automated via the chezmoi hook in `.chezmoi.toml.tmpl`:
+   ```toml
+   [hooks.read-source-state.pre]
+         command = ".local/share/chezmoi/.install-prerequisites.sh"
+   ```
+
+- The `.install-prerequisites.sh` script handles:
+   - Installing `snapd` if missing
+   - Installing Bitwarden CLI (`bw`) if missing
+
 ## Todo
-- Bitwarden integration
 - setup_start.sh
 - Templating by hostname
 
