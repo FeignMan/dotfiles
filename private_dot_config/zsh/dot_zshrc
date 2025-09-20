@@ -107,9 +107,9 @@ omzPluginPath="${pluginPath}/omz_plugins"
 
 # Ensure colors match by using FZF_DEFAULT_OPTS.
 zstyle ":fzf-tab:*" use-fzf-default-opts yes
-
 # Preview file contents when tab completing directories.
 zstyle ":fzf-tab:complete:cd:*" fzf-preview "ls --color=always \${realpath}"
+source <(fzf --zsh)
 
 # Load aliases if they exist.
 # shellcheck disable=SC1091

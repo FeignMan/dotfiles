@@ -17,6 +17,8 @@ alias l='ls $LS_OPTIONS -lA'
 # alias cp='cp -i'
 # alias mv='mv -i'
 
+eval "$(fzf --bash)"
+
 if command -v tmux &> /dev/null \
 	&& [[ $- == *i* ]] \
 	&& [[ ! "$TERM" =~ screen ]] \
