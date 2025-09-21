@@ -1,5 +1,8 @@
 # shellcheck shell=bash
 
+# load tmux by default (https://unix.stackexchange.com/questions/41274/having-tmux-load-by-default-when-a-zsh-terminal-is-launched)
+if [ "$TMUX" = "" ]; then tmux; fi
+
 # Load colors so we can access $fg and more.
 autoload -U colors && colors
 
