@@ -73,6 +73,10 @@ bindkey "\e[4~" end-of-line
 bindkey "\e[F" end-of-line
 bindkey "\e[8~" end-of-line
 bindkey "\e[3~" delete-char
+bindkey "^[[1;5C" forward-word   # Ctrl+Right
+bindkey "^[[1;5D" backward-word  # Ctrl+Left
+bindkey "^[[5C" forward-word     # Some terminals (xterm)
+bindkey "^[[5D" backward-word    # Some terminals (xterm)
 
 # Allows your gpg passphrase prompt to spawn (useful for signing commits).
 # GPG_TTY="$(tty)"
