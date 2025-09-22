@@ -10,23 +10,31 @@ This repository contains personal configuration files managed using [chezmoi](ht
 - Automated package installation and system configuration
 
 ## Structure
-- `dot_bashrc`, `dot_zshenv`, `private_dot_config/zsh/dot_zshrc`, `private_dot_config/zsh/dot_aliases`: Shell configs
-- `private_dot_config/git/config`: Git config
-- `private_dot_config/tmux/tmux.conf`, `private_dot_config/tmux/themes/`: Tmux configs and themes
-- `custom_scripts/`: Custom executable scripts
-- `dot_local/private_share/scripts/setup-zsh.sh`: Zsh setup script
-- `run_once_after_setup-configure-system.sh`: System configuration script (run once)
+- `private_dot_config/`: ~/.config/ contains most config files
+  - tmux
+  - zsh
+  - git
+- `./scripts`: Internal setup scripts like Zsh/OMZ installer
+- `run_once_after_setup-configure-system.sh`: System configuration script (run once after setup) - used to install Tmux Plugin Manager.
 - `run_onchange_install-packages.sh.tmpl`: Package installation script (runs on change)
 
 ## Usage
-1. **Install** [**Chezmoi**](https://www.chezmoi.io/install/#__tabbed_5_5)
+1. Install cURL:
    ```sh
-   snap install chezmoi --classic
+   sudo apt install curl
    ```
-2. **Initialize chezmoi**:
+2. **Install** [**Chezmoi**](https://www.chezmoi.io/install/#__tabbed_5_5):
+   ```sh
+   sh -c "$(curl -fsLS get.chezmoi.io)"
+   ```
+3. **Initialize dotfiles**:
    ```sh
    chezmoi init FeignMan
    chezmoi apply
+   ```
+   **Note:** Step #3 and #4 can be combined:
+   ```sh
+   sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply FeignMan
    ```
 4. **Customize** - Track new files or changes to tracked files:
    ```sh
@@ -36,21 +44,26 @@ This repository contains personal configuration files managed using [chezmoi](ht
    git push
    ```
 
+## Setup Bitwarden CLI
+`bw` is installed by the package install script. Follow these steps to login with [API key](https://bitwarden.com/help/personal-api-key):
+1. `bw login --api`
+2. Enter `client_id` and `client_secret`
+3. `export BW_SESSION=$(bw unlock --raw)`
+
 ## Notes
 - Private files are stored in `dot_local/private_share/`.
-- Scripts in `custom_scripts/` are executable and can be used for system checks and setup.
-
+- Scripts in `scripts/` are executable and can be used for system checks and setup.
 - Prerequisite installation is automated via the chezmoi hook in `.chezmoi.toml.tmpl`:
    ```toml
    [hooks.read-source-state.pre]
          command = ".local/share/chezmoi/.install-prerequisites.sh"
    ```
-
 - The `.install-prerequisites.sh` script handles:
    - Installing `snapd` if missing
    - Installing Bitwarden CLI (`bw`) if missing
 
 ## Todo
+- Bitwarden integration
 - setup_start.sh
 - Templating by hostname
 
