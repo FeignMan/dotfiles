@@ -132,3 +132,6 @@ if [ -f "${XDG_CONFIG_HOME}/zsh/.aliases.local" ]; then . "${XDG_CONFIG_HOME}/zs
 if [ "$VSCODE_INJECTION" = "1" ]; then
     export EDITOR="code --wait"
 fi
+
+# https://direnv.net/docs/hook.html#zsh
+eval "$(direnv hook zsh)"
