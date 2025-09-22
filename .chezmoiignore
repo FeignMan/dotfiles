@@ -1,3 +1,4 @@
 # https://www.chezmoi.io/reference/special-files/chezmoiignore
 
 README.md
+scripts/*
