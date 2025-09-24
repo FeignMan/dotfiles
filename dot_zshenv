@@ -32,3 +32,5 @@ export LESS_TERMCAP_se=$'\e[0m'       # end standout-mode
 # Configure delta (diffs) defaults.
 # https://dandavison.github.io/delta/environment-variables.html
 export DELTA_FEATURES="diff-so-fancy"
+
+export LOCAL_SCRIPTS_DIR="${XDG_DATA_HOME}/scripts"
