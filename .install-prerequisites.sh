@@ -20,6 +20,7 @@ if type bw >/dev/null 2>&1; then
 else
     echo "Installing Bitwarden CLI"
     if sudo snap install bw; then
+        bw config server https://vault.feignman.online
         echo "Bitwarden CLI installed successfully"
     else
         echo "Failed to install Bitwarden CLI"
