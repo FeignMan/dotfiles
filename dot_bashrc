@@ -27,3 +27,4 @@ if command -v tmux &> /dev/null \
 	tmux new-session -A -s main
 fi
 
+eval "$(direnv hook bash)"
