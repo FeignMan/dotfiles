@@ -13,6 +13,19 @@ echo -e "\n\e[0;32m  Installing Snap Packages...\e[00m\n"
 sudo snap install {{ . }}
 {{ end -}}
 
+echo -e "\n\e[0;32m  Installing NVM...\e[00m\n"
+latest_nvm_version=$(curl -s https://api.github.com/repos/nvm-sh/nvm/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+echo -e "\n\e[0;32m  Latest NVM version: $latest_nvm_version\e[00m\n"
+# export NVM_DIR="$HOME/.local/share/nvmdir"
+curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/$latest_nvm_version/install.sh" | bash
+nvm install --lts
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+echo -e "\n\e[0;32m  Installing Global NPM Packages...\e[00m\n"
+{{ range .packages.universal.npm_packages -}}
+npm install -g {{ . }}
+{{ end -}}
+
 # Setup Oh-my-zsh and Zsh plugins
 echo -e "\n\e[0;32m  Executing setup-zsh.sh...\e[00m\n"
 bash ~/.local/share/chezmoi/scripts/setup-zsh.sh

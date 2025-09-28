@@ -31,3 +31,5 @@ packages:
     snap:
       - bw
       - yazi --classic
+    npm_packages:
+      - "@google/gemini-cli"
