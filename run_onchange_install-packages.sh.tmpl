@@ -16,10 +16,10 @@ sudo snap install {{ . }}
 echo -e "\n\e[0;32m  Installing NVM...\e[00m\n"
 latest_nvm_version=$(curl -s https://api.github.com/repos/nvm-sh/nvm/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
 echo -e "\n\e[0;32m  Latest NVM version: $latest_nvm_version\e[00m\n"
-# export NVM_DIR="$HOME/.local/share/nvmdir"
+export NVM_DIR="$HOME/.config/nvm"
 curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/$latest_nvm_version/install.sh" | bash
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 nvm install --lts
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 echo -e "\n\e[0;32m  Installing Global NPM Packages...\e[00m\n"
 {{ range .packages.universal.npm_packages -}}
