@@ -1,9 +1,7 @@
 #!/bin/bash
 
-# Get script directory
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-# Path to logger module
-source "${SCRIPT_DIR}/logging.sh" # logger is in same directory
+# Source logger module
+source "${XDG_DATA_HOME}/scripts/logging.sh" # logger is in same directory
 
 function bitwarden_password_to_env() {
   if [[ "$#" -lt 2 ]]; then
@@ -38,7 +36,7 @@ function bitwarden_password_to_env() {
       exit 1
     fi
 
-    export "$environment_variable_name=$CREDENTIAL"
+    export "$environment_variable_name"="$CREDENTIAL"
     log_message "✅️ Exported $environment_variable_name"
   done
 
