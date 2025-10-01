@@ -1,10 +1,7 @@
-# {{- $isWorkComputer := promptBoolOnce . "isWorkComputer" "Is this your work computer" -}}
+{{- $bwServerURL := promptStringOnce . "bw_server_url" "Enter your Bitwarden Server URL" -}}
 
-# [data]
-#     isWorkComputer = {{ $isWorkComputer }}
-
-[hooks.read-source-state.pre]
-    command = ".local/share/chezmoi/.install-prerequisites.sh"
+[data]
+    bw_server_url = {{ $bwServerURL | quote }}
 
 [git]
     autoCommit = true

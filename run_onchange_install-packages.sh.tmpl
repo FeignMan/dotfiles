@@ -28,7 +28,7 @@ npm install -g {{ . }}
 
 # Setup Oh-my-zsh and Zsh plugins
 echo -e "\n\e[0;32m  Executing setup-zsh.sh...\e[00m\n"
-bash ~/.local/share/chezmoi/scripts/setup-zsh.sh
+bash {{ .chezmoi.sourceDir }}/scripts/setup-zsh.sh
 
 # Setup FZF from releases
 echo -e "\n\e[0;32m  Installing FZF...\e[00m\n"

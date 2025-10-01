@@ -15,8 +15,8 @@ This repository contains personal configuration files managed using [chezmoi](ht
   - zsh
   - git
 - `./scripts`: Internal setup scripts like Zsh/OMZ installer
-- `run_once_after_setup-configure-system.sh`: System configuration script (run once after setup) - used to install Tmux Plugin Manager.
-- `run_onchange_install-packages.sh.tmpl`: Package installation script (runs on change)
+- `run_once_00_install-prerequisites.sh.tmpl`: Installs `snapd` and `bw`.
+- `run_once_01_after_setup-configure-system.sh`: Installs Tmux Plugin Manager.
 
 ## Usage
 1. Install cURL:
@@ -52,15 +52,8 @@ This repository contains personal configuration files managed using [chezmoi](ht
 
 ## Notes
 - Private files are stored in `dot_local/private_share/`.
-- Scripts in `scripts/` are executable and can be used for system checks and setup.
-- Prerequisite installation is automated via the chezmoi hook in `.chezmoi.toml.tmpl`:
-   ```toml
-   [hooks.read-source-state.pre]
-         command = ".local/share/chezmoi/.install-prerequisites.sh"
-   ```
-- The `.install-prerequisites.sh` script handles:
-   - Installing `snapd` if missing
-   - Installing Bitwarden CLI (`bw`) if missing
+- Scripts in `scripts/` are helper scripts, not run automatically by `chezmoi`.
+- Initial setup is handled by `run_once_` scripts, which are executed automatically by `chezmoi apply` on a new machine.
 
 ## Todo
 - Bitwarden integration
