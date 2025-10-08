@@ -59,3 +59,5 @@ alias stop-rec='stop-recording && HISTSIZE=${SAVEHIST} && fc -R'
 # up memory, this command will free your memory after about 20-30 seconds.
 #   Details: https://github.com/microsoft/WSL/issues/4166#issuecomment-628493643
 # alias drop_cache="sudo sh -c \"echo 3 >'/proc/sys/vm/drop_caches' && swapoff -a && swapon -a && printf '\n%s\n' 'Ram-cache and Swap Cleared'\""
+
+alias rbw-get='rbw get $(rbw list | fzf)'
