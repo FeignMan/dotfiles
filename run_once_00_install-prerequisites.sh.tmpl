@@ -14,6 +14,9 @@ else
     echo "snapd is already installed."
 fi
 
+# Install rbw
+bash {{ .chezmoi.sourceDir }}/scripts/install_rbw.sh
+
 # Install Bitwarden CLI if not already installed
 if type bw >/dev/null 2>&1; then
     echo "Bitwarden CLI is already installed"

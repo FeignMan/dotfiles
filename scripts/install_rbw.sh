@@ -13,12 +13,12 @@ GITHUB_REPO="doy/rbw"
 TMP_DIR="" # Will be set by mktemp
 
 log() {
-    echo "[*] $@" >&2
+    echo "[install_rbw] $@" >&2
 }
 
 # Print an error message and exit
 fail() {
-    echo "[!] ERROR: $@" >&2
+    echo "[install_rbw] ERROR: $@" >&2
     # Cleanup temporary directory if it was created
     log "Cleaning up temporary directory: ${TMP_DIR}"
     rm -rf "${TMP_DIR}"
