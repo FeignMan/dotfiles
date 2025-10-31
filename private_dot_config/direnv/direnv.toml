@@ -1,0 +1,2 @@
+# Wait an hour before warning
+warn_timeout = "1h"
