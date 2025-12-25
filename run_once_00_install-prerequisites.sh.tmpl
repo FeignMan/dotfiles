@@ -15,6 +15,7 @@ else
 fi
 
 # Install rbw
+sudo apt install jq -yqq
 bash {{ .chezmoi.sourceDir }}/scripts/install_rbw.sh
 
 # Install Bitwarden CLI if not already installed

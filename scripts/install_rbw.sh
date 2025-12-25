@@ -82,7 +82,8 @@ download_package() {
     filename=$(basename "${url}")
 
     # Download to a temporary directory
-    local TMP_DIR=$(mktemp -d)
+    local TMP_DIR="${HOME}/.cache/rbw-install-$$-$RANDOM"
+    mkdir -p "${TMP_DIR}"
     local destination="${TMP_DIR}/${filename}"
     log "Downloading ${filename} to ${destination}..."
     curl --progress-bar --fail --location -o "${destination}" "${url}" || fail "Failed to download the package from ${url}."
@@ -93,6 +94,8 @@ download_package() {
 # Install the downloaded.deb package
 install_package() {
 
+    log "Install path: ${1}"
+    mkdir -p "${HOME}/.local/bin"
     tar -xzf "${1}" -C "${HOME}/.local/bin" || fail "Failed to extract tar.gz file."
     chmod +x "${HOME}/.local/bin/rbw"
 
