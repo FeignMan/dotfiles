@@ -1,7 +1,9 @@
-{{- $bwServerURL := promptStringOnce . "bw_server_url" "Enter your Bitwarden Server URL" -}}
+{{- $bwServerURL := promptStringOnce . "bw_server_url" "Enter your Vaultwarden Server URL" -}}
+{{- $myEmail := promptStringOnce . "my_email" "Enter your Vaultwarden login email" -}}
 
 [data]
     bw_server_url = {{ $bwServerURL | quote }}
+    my_email = {{ $myEmail | quote }}
 
 [git]
     autoCommit = true
