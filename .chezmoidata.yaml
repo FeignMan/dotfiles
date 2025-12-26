@@ -1,6 +1,7 @@
 packages:
   universal:
     apts:
+      - build-essential
       - zsh
       - tmux
       - fd-find

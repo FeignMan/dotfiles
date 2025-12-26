@@ -136,6 +136,10 @@ fi
 # https://direnv.net/docs/hook.html#zsh
 eval "$(direnv hook zsh)"
 
+# Load cargo environment if it exists.
+[ -f "/home/ishan/.local/share/cargo/env" ] && . "/home/ishan/.local/share/cargo/env"
+
+# Load nvm (Node Version Manager)
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

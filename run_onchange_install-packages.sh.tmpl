@@ -13,6 +13,19 @@ echo -e "\n\e[0;32m  Installing Snap Packages...\e[00m\n"
 sudo snap install {{ . }}
 {{ end -}}
 
+# Install rustup
+echo -e "\n\e[0;32m  Installing NVM...\e[00m\n"echo -e "\n\e[0;32m Installing Rust Toolchain... \e[00m\n"
+RUSTUP_HOME="$HOME/.local/share/rustup" CARGO_HOME="$HOME/.local/share/cargo" \
+    bash -c 'curl https://sh.rustup.rs -sSf | sh -s -- -y'
+if [ $? -eq 0 ]; then
+    echo -e "\n\e[0;32m  Rust toolchain installed successfully \e[00m\n"
+    . "$HOME/.local/share/cargo/env"
+    rustup default stable
+else
+    echo -e "\n\e[0;31m  Failed to install Rust toolchain \e[00m\n"
+    exit 1
+fi
+
 echo -e "\n\e[0;32m  Installing NVM...\e[00m\n"
 latest_nvm_version=$(curl -s https://api.github.com/repos/nvm-sh/nvm/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
 echo -e "\n\e[0;32m  Latest NVM version: $latest_nvm_version\e[00m\n"
