@@ -1,35 +1,55 @@
 #!/bin/bash
 set -e
-echo "Installing Pre-requisites..."
+
+log() {
+    echo -e "\n\e[0;32m[install-prerequisites] $@\e[00m"
+}
+
+log_error() {
+    echo -e "\n\e[0;31m[install-prerequisites] $@\e[00m" >&2
+}
+
+log "Installing Pre-requisites..."
 # Check if snapd is installed, install if not
 if ! command -v snap &> /dev/null; then
-    echo "snapd not found. Installing..."
+    log "snapd not found. Installing..."
     if sudo apt update && sudo apt install -y snapd; then
-        echo "snapd installed successfully"
+        log "snapd installed successfully"
     else
-        echo "Failed to install snapd with apt. Try manually."
+        log_error "Failed to install snapd with apt. Try manually."
         exit 1
     fi
 else
-    echo "snapd is already installed."
+    log "snapd is already installed."
 fi
 
-# Install rbw
+log "Installing rbw..."
 sudo apt install jq -yqq
 bash {{ .chezmoi.sourceDir }}/scripts/install_rbw.sh
 
-# Install Bitwarden CLI if not already installed
-if type bw >/dev/null 2>&1; then
-    echo "Bitwarden CLI is already installed"
+# Install rustup
+log "Installing Rust Toolchain..."
+RUSTUP_HOME="$HOME/.local/share/rustup" CARGO_HOME="$HOME/.local/share/cargo" \
+    bash -c 'curl https://sh.rustup.rs -sSf | sh -s -- -y'
+if [ $? -eq 0 ]; then
+    log "Rust toolchain installed successfully"
+    . "$HOME/.local/share/cargo/env"
 else
-    echo "Installing Bitwarden CLI"
+    log_error "Failed to install Rust toolchain"
+    exit 1
+fi
+
+if type bw >/dev/null 2>&1; then
+    log "Bitwarden CLI is already installed"
+else
+    log "Installing Bitwarden CLI"
     if sudo snap install bw; then
         {{- if .bw_server_url }}
         bw config server {{ .bw_server_url }}
         {{- end }}
-        echo "Bitwarden CLI installed successfully"
+        log "Bitwarden CLI installed successfully"
     else
-        echo "Failed to install Bitwarden CLI"
+        log_error "Failed to install Bitwarden CLI"
         exit 1
     fi
 fi
