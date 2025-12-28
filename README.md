@@ -19,26 +19,31 @@ This repository contains personal configuration files managed using [chezmoi](ht
 - `run_once_01_after_setup-configure-system.sh`: Installs Tmux Plugin Manager.
 
 ## Usage
-1. Install cURL:
+1. **Install** [**Chezmoi**](https://www.chezmoi.io/install/#__tabbed_5_5):
    ```sh
-   sudo apt install curl
+   sh -c "$(curl -fsLS get.chezmoi.io/lb)"
    ```
-2. **Install** [**Chezmoi**](https://www.chezmoi.io/install/#__tabbed_5_5):
-   ```sh
-   sh -c "$(curl -fsLS get.chezmoi.io)"
-   ```
-3. **Initialize dotfiles**:
+   Logout/login to bash for changes to take effect.
+2. **Initialize dotfiles**:
    ```sh
    chezmoi init FeignMan
    chezmoi apply
    ```
-   **Note:** Step #3 and #4 can be combined:
+   **Testing a Dev Branch**:
    ```sh
-   sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply FeignMan
+   chezmoi init --branch <branch_name> Feignman
    ```
+   ***Steps #1 and #2 can be combined:**
+   ```sh
+   sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --apply FeignMan
+   ```
+   The --branch option may also be used above...
 4. **Customize** - Track new files or changes to tracked files:
    ```sh
    chezmoi add <file_path>
+   ```
+   Auto-commit option is enabled. In case manaul commit is required:
+   ```sh
    chezmoi cd
    git commit -am "<update message>"
    git push
@@ -56,7 +61,7 @@ This repository contains personal configuration files managed using [chezmoi](ht
 - Initial setup is handled by `run_once_` scripts, which are executed automatically by `chezmoi apply` on a new machine.
 
 ## Todo
-- Bitwarden integration
+- Python toolchain
 - setup_start.sh
 - Templating by hostname
 
