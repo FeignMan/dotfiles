@@ -23,3 +23,19 @@ if ! command -v uv &> /dev/null; then
 else
     log "uv is already installed."
 fi
+
+# Install Ruff
+if ! command -v ruff &> /dev/null; then
+    log "Installing Ruff..."
+    uv tool install ruff
+else
+    log "Ruff is already installed."
+fi
+
+# Install Poetry
+if ! command -v poetry &> /dev/null; then
+    log "Installing Poetry..."
+    uv tool install poetry
+else
+    log "Poetry is already installed."
+fi

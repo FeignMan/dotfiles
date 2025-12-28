@@ -37,8 +37,8 @@ fi
 
 # Install Python Developer Tools
 {{ if .install_python_tools -}}
-echo -e "\n\e[0;32m  Executing install_python_dev_tools.sh.tmpl...\e[00m\n"
-bash {{ .chezmoi.sourceDir }}/scripts/install_python_dev_tools.sh.tmpl
+echo -e "\n\e[0;32m  Executing install_python_devtools.sh...\e[00m\n"
+bash {{ .chezmoi.sourceDir }}/scripts/install_python_devtools.sh
 {{- end }}
 
 echo -e "\n\e[0;32m  Installing NVM...\e[00m\n"
