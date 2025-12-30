@@ -1,6 +1,15 @@
 #!/bin/bash
+set -e
 
-echo -e "\n\e[0;32m  Installing Apt Packages...\e[00m\n"
+log() {
+    echo -e "\n\e[0;32m[install-packages] $@\e[00m"
+}
+
+log_error() {
+    echo -e "\n\e[0;31m[install-packages] $@\e[00m" >&2
+}
+
+log "Installing Apt Packages..."
 sudo apt update -yqq
 packageList=""
 {{ range .packages.universal.apts -}}
@@ -8,43 +17,49 @@ packageList="${packageList} {{ . }}"
 {{ end -}}
 sudo apt install -yqq $packageList
 
-echo -e "\n\e[0;32m  Installing Snap Packages...\e[00m\n"
+log "Installing Snap Packages..."
 {{ range .packages.universal.snap -}}
 sudo snap install {{ . }}
 {{ end -}}
 
 # Install rustup
-echo -e "\n\e[0;32m  Installing NVM...\e[00m\n"echo -e "\n\e[0;32m Installing Rust Toolchain... \e[00m\n"
+log "Installing Rust Toolchain..."
 RUSTUP_HOME="$HOME/.local/share/rustup" CARGO_HOME="$HOME/.local/share/cargo" \
     bash -c 'curl https://sh.rustup.rs -sSf | sh -s -- -y'
 if [ $? -eq 0 ]; then
-    echo -e "\n\e[0;32m  Rust toolchain installed successfully \e[00m\n"
+    log "  Rustup installed successfully!"
     . "$HOME/.local/share/cargo/env"
     rustup default stable
 else
-    echo -e "\n\e[0;31m  Failed to install Rust toolchain \e[00m\n"
+    log_error "  Failed to install Rustup!"
     exit 1
 fi
 
+# Install Python Developer Tools
+{{ if .install_python_tools -}}
+echo -e "\n\e[0;32m  Executing install_python_devtools.sh...\e[00m\n"
+bash {{ .chezmoi.sourceDir }}/scripts/install_python_devtools.sh
+{{- end }}
+
 echo -e "\n\e[0;32m  Installing NVM...\e[00m\n"
 latest_nvm_version=$(curl -s https://api.github.com/repos/nvm-sh/nvm/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
-echo -e "\n\e[0;32m  Latest NVM version: $latest_nvm_version\e[00m\n"
+log "Latest NVM version: $latest_nvm_version"
 export NVM_DIR="$HOME/.config/nvm" && mkdir -p "$NVM_DIR"
 curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/$latest_nvm_version/install.sh" | bash
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 nvm install --lts
 
-echo -e "\n\e[0;32m  Installing Global NPM Packages...\e[00m\n"
+log "Installing Global NPM Packages..."
 {{ range .packages.universal.npm_packages -}}
 npm install -g {{ . }}
 {{ end -}}
 
 # Setup Oh-my-zsh and Zsh plugins
-echo -e "\n\e[0;32m  Executing setup-zsh.sh...\e[00m\n"
+log "Executing setup-zsh.sh..."
 bash {{ .chezmoi.sourceDir }}/scripts/setup-zsh.sh
 
 # Setup FZF from releases
-echo -e "\n\e[0;32m  Installing FZF...\e[00m\n"
+log "Installing FZF..."
 wget -qO "$HOME/fzf.tar.gz" https://github.com/junegunn/fzf/releases/download/v0.63.0/fzf-0.63.0-linux_amd64.tar.gz
 mkdir -p $HOME/.local/bin
 tar -xf "$HOME/fzf.tar.gz" -C "$HOME/.local/bin/" && rm "$HOME/fzf.tar.gz"
