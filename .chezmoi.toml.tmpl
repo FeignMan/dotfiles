@@ -1,9 +1,15 @@
 {{- $bwServerURL := promptStringOnce . "bw_server_url" "Enter your Vaultwarden Server URL" -}}
 {{- $myEmail := promptStringOnce . "my_email" "Enter your Vaultwarden login email" -}}
+{{- $gitName := promptStringOnce . "git_name" "Enter your Git user name" -}}
+{{- $gitEmail := promptStringOnce . "git_email" "Enter your Git email address" -}}
+{{- $installPythonTools := promptBoolOnce . "install_python_tools" "Do you want to install Python developer tools (uv, etc.)?" -}}
 
 [data]
     bw_server_url = {{ $bwServerURL | quote }}
     my_email = {{ $myEmail | quote }}
+    install_python_tools = {{ $installPythonTools }}
+    git_name = {{ $gitName | quote }}
+    git_email = {{ $gitEmail | quote }}
 
 [git]
     autoCommit = true
