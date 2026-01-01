@@ -9,10 +9,11 @@ log_error() {
     echo -e "\n\e[0;31m[install-packages] $@\e[00m" >&2
 }
 
-log "Installing Apt Packages..."
+log "Installing Apt Packages:"
 sudo apt update -yqq
 packageList=""
 {{ range .packages.universal.apts -}}
+echo "  - {{ . }}"
 packageList="${packageList} {{ . }}"
 {{ end -}}
 sudo apt install -yqq $packageList
@@ -37,11 +38,12 @@ fi
 
 # Install Python Developer Tools
 {{ if .install_python_tools -}}
-echo -e "\n\e[0;32m  Executing install_python_devtools.sh...\e[00m\n"
-bash {{ .chezmoi.sourceDir }}/scripts/install_python_devtools.sh
+log "Executing install_python_devtools.sh..."
+# bash {{ .chezmoi.sourceDir }}/scripts/install_python_devtools.sh.tmpl
+{{ includeTemplate "scripts/install_python_devtools.sh.tmpl" . }}
 {{- end }}
 
-echo -e "\n\e[0;32m  Installing NVM...\e[00m\n"
+log "Installing NVM..."
 latest_nvm_version=$(curl -s https://api.github.com/repos/nvm-sh/nvm/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
 log "Latest NVM version: $latest_nvm_version"
 export NVM_DIR="$HOME/.config/nvm" && mkdir -p "$NVM_DIR"

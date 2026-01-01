@@ -10,8 +10,6 @@ packages:
       - wget
       - vim
       - jq
-      - python3
-      - python3-venv
       - snapd
       - tree
       - htop
@@ -34,3 +32,19 @@ packages:
       - yazi --classic
     npm_packages:
       - "@google/gemini-cli"
+  python_dev:
+    apts:
+      - python3
+      - python3-pip
+      - python3-dev
+      - python3-setuptools
+      - python3-venv
+      - python3-wheel
+      # code quality tools
+      - black
+      - python3-isort
+      - python3-mypy
+      - pylint
+    uv:
+      - ruff
+      - poetry

@@ -1,0 +1,43 @@
+#!/bin/bash
+set -e
+
+log() {
+    echo -e "\n\e[0;32m[python-devtools] $@\e[00m"
+}
+
+log_error() {
+    echo -e "\n\e[0;31m[python-devtools] $@\e[00m" >&2
+}
+
+log "Installing Python Developer Tools..."
+
+log "1. Installing apt packages:"
+packageList=""
+{{ range .packages.python_dev.apts -}}
+echo "  - {{ . }}"
+packageList="${packageList} {{ . }}"
+{{ end -}}
+sudo apt install -yqq $packageList
+
+# Install uv
+log "2. Installing uv (Universal Version manager):"
+if ! command -v uv &> /dev/null; then
+    if curl -LsSf https://astral.sh/uv/install.sh | sh; then
+        source $HOME/.local/bin/env
+        log "uv installed successfully"
+    else
+        log_error "Failed to install uv. Try manually."
+        exit 1
+    fi
+else
+    log "uv is already installed."
+fi
+
+log "3. Installing uv packages:"
+packageList=""
+{{ range .packages.python_dev.uv -}}
+uv tool install {{ . }}
+packageList="${packageList} {{ . }}"
+{{ end -}}
+
+log "Python Developer Tools installation completed."
