@@ -2,6 +2,8 @@ packages:
   universal:
     apts:
       - build-essential
+      - cmake
+      - gdb
       - zsh
       - tmux
       - fd-find
