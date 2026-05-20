@@ -133,6 +133,8 @@ if [ "$VSCODE_INJECTION" = "1" ]; then
     export EDITOR="code --wait"
 fi
 
+eval "$(zoxide init zsh)"
+
 # https://direnv.net/docs/hook.html#zsh
 eval "$(direnv hook zsh)"
 
