@@ -28,3 +28,4 @@ if command -v tmux &> /dev/null \
 fi
 
 eval "$(direnv hook bash)"
+eval "$(zoxide init bash)"
