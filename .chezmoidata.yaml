@@ -4,6 +4,7 @@ packages:
       - build-essential
       - cmake
       - gdb
+      - cppcheck
       - zsh
       - tmux
       - fd-find
