@@ -42,8 +42,12 @@ log "Executing install_python_devtools.sh..."
 {{ includeTemplate "scripts/install_python_devtools.sh.tmpl" . }}
 {{- end }}
 
+# Install LLVM Toolchain - https://apt.llvm.org
+log "Installing LLVM Toolchain..."
+bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
+
 log "Installing Docker-CE, Docker-Compose..."
-bash {{ .chezmoi.sourceDir }}/scripts/install_docker.sh
+sudo bash {{ .chezmoi.sourceDir }}/scripts/install_docker.sh
 
 log "Installing NVM..."
 latest_nvm_version=$(curl -s https://api.github.com/repos/nvm-sh/nvm/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
